@@ -15,7 +15,9 @@ if (file_exists($argv[1]) == FALSE)
 
 // generatelink.ini 
 // filemap.txt 
-$ini_array = parse_ini_file("generatelink.ini");
+$ini_array = parse_ini_file(getcwd()."generatelink.ini", true);
+if ($ini_array == FALSE)
+	die("There is no generatelink.ini");
 
 // [mapfile]
 // path=xxxx
@@ -26,6 +28,9 @@ $mapfilepath = $ini_array['mapfile']['path'];
 $url = $ini_array['server']['url'];
 
 $myfile = fopen($mapfilepath, "a");
+if ($myfile == FALSE)
+	die("There is no mapfile : [".$mapfilepath."]\n");
+
 $digest = md5($filepath);
 
 $line = $digest." "."\"".$filepath."\"\n";

@@ -14,13 +14,19 @@ return false;
 // configuration file
 // download.ini
 // filemap.txt 
-$ini_array = parse_ini_file("download.ini");
+$ini_array = parse_ini_file(getcwd()."download.ini", true);
+
+if ($ini_array == FALSE)
+	die("There is no download.ini");
 
 // [mapfile]
 // path=xxxx
 $mapfilepath = $ini_array['mapfile']['path'];
 
+
 $myfile = fopen($mapfilepath, "r") or die("Unable to open file");
+if ($myfile == FALSE)
+	die("There is no mapfile");
 
 $doc_data = array();
 
